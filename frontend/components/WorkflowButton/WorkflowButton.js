@@ -11,6 +11,7 @@ import { abi, contractAddress } from '@/constants';
 
 // ReactJS
 import { useState, useEffect } from 'react';
+import Whitelist from '../Whitelist/Whitelist';
 
 const WorkflowButton = ({ workflowStatus }) => {
     
@@ -86,11 +87,11 @@ const WorkflowButton = ({ workflowStatus }) => {
     return(
         <Flex p='2rem'>
             {isLoading ? <Spinner/> :
-                ( isConnected ? (
-                    workflowStatus === "5" ? 
-                        <></> :
-                        <Button colorScheme='green' onClick={() => {nextWorkflow(workflowStatus)}}>{displayMessage(workflowStatus)}</Button>
-                ) : (
+                ( isConnected ? 
+                        (workflowStatus === "5") ? 
+                            <></> :
+                            <Button colorScheme='green' onClick={() => {nextWorkflow(workflowStatus)}}>{displayMessage(workflowStatus)}</Button>
+                    : (
                     <Alert status='warning'>
                         <AlertIcon />
                         Please connect your Wallet to our DApp.

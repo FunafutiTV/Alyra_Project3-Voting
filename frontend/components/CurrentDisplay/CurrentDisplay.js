@@ -2,6 +2,7 @@
 import WorkflowButton from "@/components/WorkflowButton/WorkflowButton"
 import Whitelist from "@/components/Whitelist/Whitelist"
 import Proposals from "@/components/Proposals/Proposals"
+import VoteOver from "@/components/VoteOver/VoteOver"
 
 import { Flex, Alert, AlertIcon, Heading, Input, Button, Text, useToast, Spinner } from '@chakra-ui/react';
 
@@ -68,12 +69,29 @@ const CurrentDisplay = () => {
         call();
     }, [address])
 
+    function chosenComponent(workflowStatus) {
+        console.log(workflowStatus)
+        switch (workflowStatus) {
+            case "0":
+                return (isOwner ? <Whitelist /> : <Text>Waiting for the owner to open the proposals registration session.</Text>);
+            case "1":
+                return <Proposals proposalsOpen={true} voteOpen={false} />;
+            case "2":
+                return <Proposals proposalsOpen={false} voteOpen={false} />;
+            case "3":
+                return <Proposals proposalsOpen={false} voteOpen={true} />;
+            case "4":
+                return <Proposals proposalsOpen={true} voteOpen={false} />;
+            case "5":
+                return <VoteOver />;
+        }
+    }
+
     return (
         <>
             {isConnected 
                 ? <>
-                    <Whitelist /> {/* Ajouter un switch pour afficher le bon component selon workflowStatus */}
-                    {/* <Proposals /> */} 
+                    <>{chosenComponent(workflowStatus.toString())}</>
                     {isOwner ? (<WorkflowButton workflowStatus={workflowStatus.toString()} />) : ""}
                   </>
                 : (
