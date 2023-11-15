@@ -87,7 +87,9 @@ const WorkflowButton = ({ workflowStatus }) => {
         <Flex p='2rem'>
             {isLoading ? <Spinner/> :
                 ( isConnected ? (
-                    <Button colorScheme='green' onClick={() => {nextWorkflow(workflowStatus)}}>{displayMessage(workflowStatus)}</Button>
+                    workflowStatus === "5" ? 
+                        <></> :
+                        <Button colorScheme='green' onClick={() => {nextWorkflow(workflowStatus)}}>{displayMessage(workflowStatus)}</Button>
                 ) : (
                     <Alert status='warning'>
                         <AlertIcon />
