@@ -1,0 +1,30 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@rainbow-me/rainbowkit": "^1.2.0",
+    "encoding": "^0.1.13",
+    "framer-motion": "^10.16.4",
+    "next": "13.5",
+    "pino-pretty": "^10.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "viem": "^1.18.9",
+    "wagmi": "^1.4.6"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0"
+  }
+}

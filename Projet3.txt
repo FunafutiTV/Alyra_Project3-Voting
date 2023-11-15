@@ -1,0 +1,15 @@
+version solidity 0.8.20
+version node 20.9.0
+Version next 13.5.4
+
+@Chakra UI
+@Rainbowkit + Wagmi
+
+
+Au moment de la config de Rainbowkit, il faut renseigner le project ID issu de cloud Wallet
+
+walletconnect.com/app
+
+J'ai donc sélectionné la clé associé à mon compte : f06eb38511f11749f70d6ea4e2b955eb et je l'ai collée dans layout.js ligne 26 à la place de 'YOUR_PROJECT_ID'
+
+Ma question est : peut on renseigner cette clé dans un fichier .env et l'associer à une variable : PROJECT_ID qui serait renseignée  dans layout.js ligne 26 à la place de 'YOUR_PROJECT_ID'
