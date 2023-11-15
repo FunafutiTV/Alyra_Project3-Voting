@@ -95,7 +95,7 @@ const Proposals = () => {
             await getEvents()
         }
         registerAndEvents()
-    }, [addressWhitelisted])
+    }, [isLoading])
 
     return (
         <Flex p='2rem'>
