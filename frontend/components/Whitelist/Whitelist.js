@@ -44,7 +44,7 @@ const Whitelist = () => {
             const { request } = await prepareWriteContract({
                 address: contractAddress,
                 abi: abi,
-                functionName: 'registerVoters',
+                functionName: 'addVoter',
                 args: [addressWhitelisted],
             });
             const { hash } = await writeContract(request);
@@ -59,6 +59,7 @@ const Whitelist = () => {
         }
         catch(err) {
             console.log(err.message)
+            setIsLoading(false)
             toast({
                 title: 'Error',
                 description: "An error occured.",

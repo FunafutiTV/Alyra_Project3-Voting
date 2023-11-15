@@ -44,7 +44,7 @@ const Proposals = () => {
             const { request } = await prepareWriteContract({
                 address: contractAddress,
                 abi: abi,
-                functionName: 'registerProposals',
+                functionName: 'addProposal',
                 args: [addressWhitelisted],
             });
             const { hash } = await writeContract(request);

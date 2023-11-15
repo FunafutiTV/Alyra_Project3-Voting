@@ -70,7 +70,6 @@ const CurrentDisplay = () => {
     }, [address])
 
     function chosenComponent(workflowStatus) {
-        console.log(workflowStatus)
         switch (workflowStatus) {
             case "0":
                 return (isOwner ? <Whitelist /> : <Text>Waiting for the owner to open the proposals registration session.</Text>);

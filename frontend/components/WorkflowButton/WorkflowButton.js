@@ -28,15 +28,15 @@ const WorkflowButton = ({ workflowStatus }) => {
         const chosenFunction = (workflowStatus) => {
             switch (workflowStatus) {
                 case "0":
-                    return 'startProposalsRegistration';
+                    return 'startProposalsRegistering';
                 case "1":
-                    return 'endProposalsRegistration';
+                    return 'endProposalsRegistering';
                 case "2":
                     return 'startVotingSession';
                 case "3":
                     return 'endVotingSession';
                 case "4":
-                    return 'votesTallied';
+                    return 'tallyVotes';
             }
         }
         try {
