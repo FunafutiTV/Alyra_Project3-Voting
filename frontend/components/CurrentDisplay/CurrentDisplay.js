@@ -2,6 +2,8 @@
 import WorkflowButton from "@/components/WorkflowButton/WorkflowButton"
 import Whitelist from "@/components/Whitelist/Whitelist"
 import Proposals from "@/components/Proposals/Proposals"
+import ProposalsTable from "@/components/ProposalsTable/ProposalsTable"
+import AddVote from "@/components/AddVote/AddVote"
 import VoteOver from "@/components/VoteOver/VoteOver"
 
 import { Flex, Alert, AlertIcon, Heading, Input, Button, Text, useToast, Spinner } from '@chakra-ui/react';
@@ -74,13 +76,28 @@ const CurrentDisplay = () => {
             case "0":
                 return (isOwner ? <Whitelist /> : <Text>Waiting for the owner to open the proposals registration session.</Text>);
             case "1":
-                return <Proposals proposalsOpen={true} voteOpen={false} />;
+                return (
+                    <>
+                        <Proposals />
+                        <ProposalsTable />
+                    </>
+                );
             case "2":
-                return <Proposals proposalsOpen={false} voteOpen={false} />;
+                return (
+                    <>
+                        Proposals registering session is over. Waiting for the voting session to start. 
+                        <ProposalsTable />
+                    </>
+                );
             case "3":
-                return <Proposals proposalsOpen={false} voteOpen={true} />;
+                return (
+                    <>
+                        <AddVote />
+                        <ProposalsTable />
+                    </>
+                );
             case "4":
-                return <Proposals proposalsOpen={true} voteOpen={false} />;
+                return <>Voting session is over. Waiting for the winner to be revealed.</>;
             case "5":
                 return <VoteOver />;
         }

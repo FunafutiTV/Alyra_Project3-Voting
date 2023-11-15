@@ -44,7 +44,7 @@ const AddVote = () => {
             const { request } = await prepareWriteContract({
                 address: contractAddress,
                 abi: abi,
-                functionName: 'vote',
+                functionName: 'setVote',
                 args: [voteAdded],
             });
             const { hash } = await writeContract(request);
