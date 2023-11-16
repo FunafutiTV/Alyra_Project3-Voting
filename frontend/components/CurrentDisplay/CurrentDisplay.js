@@ -85,7 +85,7 @@ const CurrentDisplay = () => {
             case "2":
                 return (
                     <>
-                        Proposals registering session is over. Waiting for the voting session to start. 
+                        <Text>Proposals registering session is over. Waiting for the voting session to start.</Text>
                         <ProposalsTable />
                     </>
                 );
@@ -97,7 +97,7 @@ const CurrentDisplay = () => {
                     </>
                 );
             case "4":
-                return <>Voting session is over. Waiting for the winner to be revealed.</>;
+                return <Text>Voting session is over. Waiting for the winner to be revealed.</Text>;
             case "5":
                 return <VoteOver />;
         }
