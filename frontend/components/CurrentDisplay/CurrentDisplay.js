@@ -26,6 +26,8 @@ const CurrentDisplay = () => {
 
     const [nbProposals, setNbProposals] = useState(0);
 
+    const [wrkStatus, setWrkStatus] = useState(false);
+
     // Client Viem
     const client = usePublicClient();
 
@@ -66,7 +68,7 @@ const CurrentDisplay = () => {
     useEffect(() => {
         const call = async() => {await getWorkflowStatus()};
         call();
-    }, [])
+    }, [wrkStatus])
 
     useEffect(() => {
         const call = async() => {await getIsOwner()};
@@ -110,7 +112,7 @@ const CurrentDisplay = () => {
             {isConnected 
                 ? <>
                     <>{chosenComponent(workflowStatus.toString())}</>
-                    {isOwner ? (<WorkflowButton workflowStatus={workflowStatus.toString()} />) : ""}
+                    {isOwner ? (<WorkflowButton setWrkStatus={setWrkStatus} workflowStatus={workflowStatus.toString()} />) : ""}
                   </>
                 : (
                     <Alert status='warning'>

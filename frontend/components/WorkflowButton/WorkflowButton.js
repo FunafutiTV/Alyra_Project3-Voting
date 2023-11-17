@@ -13,7 +13,7 @@ import { abi, contractAddress } from '@/constants';
 import { useState, useEffect } from 'react';
 import Whitelist from '../Whitelist/Whitelist';
 
-const WorkflowButton = ({ workflowStatus }) => {
+const WorkflowButton = ({ setWrkStatus, workflowStatus }) => {
     
     // IsLoading 
     const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +47,7 @@ const WorkflowButton = ({ workflowStatus }) => {
                 functionName: chosenFunction(workflowStatus),
             });
             const { hash } = await writeContract(request);
+            setWrkStatus(wrkStatus => !wrkStatus)
             setIsLoading(false)
             toast({
                 title: 'Congratulations',

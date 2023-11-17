@@ -51,8 +51,12 @@ const VoteOver = () => {
 
     return(
         <Flex p='2rem'>
-                <Button colorScheme='green' onClick={getWinner}>Get winner</Button>
-                {hasClicked ? <Text>The winner is proposal {winner} : {winnerDescription}</Text>: <></>}
+                <Flex>
+                    <Button colorScheme='green' onClick={getWinner}>Get winner</Button>
+                </Flex>
+                <Flex>
+                    {hasClicked ? <Text>The winner is proposal {winner} : {winnerDescription}</Text>: <></>}
+                </Flex>
         </Flex>
     )
 }
