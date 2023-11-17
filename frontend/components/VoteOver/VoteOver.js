@@ -6,6 +6,8 @@ import { prepareWriteContract, writeContract, readContract } from '@wagmi/core';
 
 import { useState, useEffect } from 'react'
 
+import { abi, contractAddress } from '@/constants';
+
 const VoteOver = () => {
 
     const [hasClicked, setHasClicked] = useState(false);
@@ -19,7 +21,7 @@ const VoteOver = () => {
                 abi: abi,
                 functionName: 'winningProposalID',
             })
-            setWinner(data)
+            setWinner(data.toString())
             setHasClicked(true)
         }
         catch(err) {
@@ -35,7 +37,7 @@ const VoteOver = () => {
                 functionName: 'getOneProposal',
                 args: [winner],
             })
-            setWinnerDescription(data)
+            setWinnerDescription(data.description)
         }
         catch(err) {
             console.log(err.message)
@@ -48,10 +50,10 @@ const VoteOver = () => {
     }, [winner])
 
     return(
-        <>
-            <Button colorScheme='green' onClick={getWinner}>Get winner</Button>
-            {hasClicked ? <Text>The winner is proposal {winner}, : {winnerDescription}</Text>: <></>}
-        </>
+        <Flex p='2rem'>
+                <Button colorScheme='green' onClick={getWinner}>Get winner</Button>
+                {hasClicked ? <Text>The winner is proposal {winner} : {winnerDescription}</Text>: <></>}
+        </Flex>
     )
 }
 
