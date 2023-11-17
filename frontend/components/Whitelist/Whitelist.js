@@ -73,7 +73,7 @@ const Whitelist = () => {
     // Get the event with Viem
 
     const getEvents = async() => {
-        // Registered
+        // Registered Whitelist
         const registeredLogs = await client.getLogs({  
             address: contractAddress,
             event: parseAbiItem('event VoterRegistered(address voterAddress)'),
@@ -87,7 +87,7 @@ const Whitelist = () => {
             })
         ));
 
-        console.log("test");
+        console.log("testWhitelist");
         console.log(registeredLogs);
     }   
     
@@ -111,18 +111,18 @@ const Whitelist = () => {
                     
                     <Flex mt='1rem'>
                         <Input placeholder="Address of the voter" value={addressWhitelisted} onChange={(e) => setAddressWhitelisted(e.target.value)} />
-                        <Button colorScheme='green' onClick={addVoter}>Register</Button>
+                        <Button colorScheme='green' onClick={addVoter}>Register a voter</Button>
                     </Flex>
 
                     <Heading as='h2' size='xl' mt='2rem'>
-                        Registering Events
+                        Registering Whitelist Events
                     </Heading>
                     <Flex mt='1rem' direction='column'>
                         {VoterRegisteredEvents.length > 0 ? VoterRegisteredEvents.map((event) => {
                             return <Flex key={crypto.randomUUID()}>
                                 <Text>{event.addressVoter.substring(0,6)}...{event.addressVoter.substring(event.addressVoter.length - 5)} whitelisted</Text>
                             </Flex>
-                        }) : <Text>No Registering Event</Text>}
+                        }) : <Text>No Registering Whitelist Event</Text>}
                     </Flex>
                 </Flex>
             ) : (

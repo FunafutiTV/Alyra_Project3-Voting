@@ -5,6 +5,8 @@ Version next 13.5.4
 @Chakra UI
 @Rainbowkit + Wagmi
 
+Hardhat #1 : 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+
 
 Au moment de la config de Rainbowkit, il faut renseigner le project ID issu de cloud Wallet
 

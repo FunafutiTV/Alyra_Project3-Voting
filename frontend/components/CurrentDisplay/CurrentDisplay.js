@@ -83,7 +83,6 @@ const CurrentDisplay = () => {
                 return (
                     <>
                         <Proposals setNbProposals={setNbProposals} />
-                        <ProposalsTable nbProposals={nbProposals} />
                     </>
                 );
             case "2":

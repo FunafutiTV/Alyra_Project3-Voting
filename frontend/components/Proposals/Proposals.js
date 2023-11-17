@@ -16,13 +16,16 @@ import { useState, useEffect } from 'react';
 import { formatEther, parseEther, createPublicClient, http, parseAbiItem } from 'viem';
 import { hardhat } from 'viem/chains';
 
-const Proposals = ({ setNbProposals }) => {
+const Proposals = () => {
 
     // Client Viem
     const client = usePublicClient();
 
     // Input States
     const [proposal, setProposal] = useState([]);
+
+    // Events States
+    const [ProposalRegisteredEvents, setProposalRegisteredEvents] = useState([]);
 
     // IsLoading 
     const [isLoading, setIsLoading] = useState(false);
@@ -69,14 +72,21 @@ const Proposals = ({ setNbProposals }) => {
     // Get the event with Viem
 
     const getEvents = async() => {
-        // Registered
+        // Registered proposal
         const registeredLogs = await client.getLogs({  
             address: contractAddress,
             event: parseAbiItem('event ProposalRegistered(uint proposalId)'),
             fromBlock: 0n,
             toBlock: 'latest'
         })
-        setNbProposals(registeredLogs.length);
+        setProposalRegisteredEvents(registeredLogs.map(
+            log => ({
+                IdProposal: log.args.proposalId.toString,
+            })
+        ));
+
+        console.log("testProposals");
+        console.log(registeredLogs);
     }   
     
     useEffect(() => {
@@ -86,6 +96,7 @@ const Proposals = ({ setNbProposals }) => {
         registerAndEvents()
     }, [isLoading])
 
+    array
     return (
         <Flex p='2rem'>
             {isLoading 
@@ -99,9 +110,19 @@ const Proposals = ({ setNbProposals }) => {
                     
                     <Flex mt='1rem'>
                         <Input placeholder="Description of the proposal" value={proposal} onChange={(e) => setProposal(e.target.value)} />
-                        <Button colorScheme='green' onClick={registerProposals}>Register</Button>
+                        <Button colorScheme='green' onClick={registerProposals}>Register a proposal</Button>
                     </Flex>
 
+                    <Heading as='h2' size='xl' mt='2rem'>
+                        Registering Proposal Events
+                    </Heading>
+                    <Flex mt='1rem' direction='column'>
+                        {ProposalRegisteredEvents.length > 0 ? ProposalRegisteredEvents.map((event) => {
+                            return <Flex key={crypto.randomUUID()}>
+                                <Text>{array[event.IdProposa.toString]} is registered as proposal with number {event.IdProposal.toString}</Text>
+                            </Flex>
+                        }) : <Text>No Registering Proposal Event</Text>}
+                    </Flex>
                 </Flex>
             ) : (
                 <Alert status='warning'>
