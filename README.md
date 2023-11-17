@@ -2,10 +2,10 @@
 
 # Pour correction :
 
-Lien vidéo :
-Lien déploiement :
-Déployé sur Sepolia
-Groupe constitué de : Thomas Thierry et Nathanael Kubski
+- Lien vidéo :
+- Lien déploiement :
+- Déployé sur Sepolia
+- Groupe constitué de : Thomas Thierry et Nathanael Kubski
 
 # Détails
 
