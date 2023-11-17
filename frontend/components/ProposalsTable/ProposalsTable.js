@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 
 import { formatEther, parseEther, createPublicClient, http, parseAbiItem } from 'viem';
 
-const ProposalsTable = ({ nbProposals }) => {
+const ProposalsTable = () => {
 
     const client = usePublicClient();
 
@@ -67,21 +67,17 @@ const ProposalsTable = ({ nbProposals }) => {
     }, [isLoading])
 
     useEffect(() => {
-        if (nbProposals === undefined) {
-            const getEvents = async() => {
-                // Registered
-                const registeredLogs = await client.getLogs({  
-                    address: contractAddress,
-                    event: parseAbiItem('event ProposalRegistered(uint proposalId)'),
-                    fromBlock: 0n,
-                    toBlock: 'latest'
-                })
-                setNumberProposals(registeredLogs.length);
-            }
-            getEvents();
-        } else {
-            setNumberProposals(nbProposals);
+        const getEvents = async() => {
+            // Registered
+            const registeredLogs = await client.getLogs({  
+                address: contractAddress,
+                event: parseAbiItem('event ProposalRegistered(uint proposalId)'),
+                fromBlock: 0n,
+                toBlock: 'latest'
+            })
+            setNumberProposals(registeredLogs.length);
         }
+        getEvents();
     }, [])
 
     return(
