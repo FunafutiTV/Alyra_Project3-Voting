@@ -56,8 +56,8 @@ const ProposalsTable = ({ nbProposals }) => {
             setProposalsComponents([])
             for(let i = 0; i < numberProposals; i++) {   
                 setProposalsComponents((prevComponents) => [...prevComponents, (
-                    <Tr key={i}>
-                        <Td>{i}</Td>
+                    <Tr key={i + 1}>
+                        <Td>{i + 1}</Td>
                         <Td>{proposalsArray[i].description}</Td>
                         <Td>{proposalsArray[i].voteCount.toString()}</Td>
                     </Tr>

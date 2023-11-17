@@ -75,20 +75,17 @@ const AddVote = () => {
         // Registered
         const registeredLogs = await client.getLogs({  
             address: contractAddress,
-            event: parseAbiItem('event Voted (address voter, uint proposalId);'),
+            event: parseAbiItem('event Voted(address voter, uint proposalId)'),
             fromBlock: 0n,
             toBlock: 'latest'
         })
 
-        setVoterRegisteredEvents(registeredLogs.map(
+        setVoteEvents(registeredLogs.map(
             log => ({
-                addressVoter: log.args.voterAddress,
-                proposalId: log.args.porposalId,
+                addressVoter: log.args.voter,
+                proposalId: log.args.proposalId,
             })
         ));
-
-        console.log("test");
-        console.log(registeredLogs);
     }   
     
     useEffect(() => {
@@ -111,7 +108,7 @@ const AddVote = () => {
                     
                     <Flex mt='1rem'>
                         <Input placeholder="Id of the proposal" value={voteAdded} onChange={(e) => setVoteAdded(e.target.value)} />
-                        <Button colorScheme='green' onClick={voteAdded}>Vote</Button>
+                        <Button colorScheme='green' onClick={registerVote}>Vote</Button>
                     </Flex>
 
                     <Heading as='h2' size='xl' mt='2rem'>
