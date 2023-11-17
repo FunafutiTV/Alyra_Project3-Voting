@@ -16,16 +16,13 @@ import { useState, useEffect } from 'react';
 import { formatEther, parseEther, createPublicClient, http, parseAbiItem } from 'viem';
 import { hardhat } from 'viem/chains';
 
-const Proposals = () => {
+const Proposals = ({ setNbProposals }) => {
 
     // Client Viem
     const client = usePublicClient();
 
     // Input States
-    const [proposals, setProposals] = useState([]);
-
-    // Events States
-    const [VoterRegisteredEvents, setVoterRegisteredEvents] = useState([]);
+    const [proposal, setProposal] = useState([]);
 
     // IsLoading 
     const [isLoading, setIsLoading] = useState(false);
@@ -45,13 +42,13 @@ const Proposals = () => {
                 address: contractAddress,
                 abi: abi,
                 functionName: 'addProposal',
-                args: [addressWhitelisted],
+                args: [proposal],
             });
             const { hash } = await writeContract(request);
             setIsLoading(false)
             toast({
                 title: 'Congratulations',
-                description: "You have whitelisted a voter.",
+                description: "Succesfully registered proposal.",
                 status: 'success',
                 duration: 4000,
                 isClosable: true,
@@ -75,16 +72,11 @@ const Proposals = () => {
         // Registered
         const registeredLogs = await client.getLogs({  
             address: contractAddress,
-            event: parseAbiItem('event VoterRegistered(address voterAddress)'),
+            event: parseAbiItem('event ProposalRegistered(uint proposalId)'),
             fromBlock: 0n,
             toBlock: 'latest'
         })
-
-        setVoterRegisteredEvents(registeredLogs.map(
-            log => ({
-                addressVoter: log.args.voterAddress,
-            })
-        ));
+        setNbProposals(registeredLogs.length);
 
         console.log("test");
         console.log(registeredLogs);
@@ -105,24 +97,14 @@ const Proposals = () => {
                 <Flex direction="column" width='100%'>
                     
                     <Heading as='h2' size='xl'>
-                        Register a voter to the whitelist
+                        Register a new proposal
                     </Heading>
                     
                     <Flex mt='1rem'>
-                        <Input placeholder="Address of the voter" value={addressWhitelisted} onChange={(e) => setAddressWhitelisted(e.target.value)} />
-                        <Button colorScheme='green' onClick={addVoter}>Register</Button>
+                        <Input placeholder="Description of the proposal" value={proposal} onChange={(e) => setProposal(e.target.value)} />
+                        <Button colorScheme='green' onClick={registerProposals}>Register</Button>
                     </Flex>
 
-                    <Heading as='h2' size='xl' mt='2rem'>
-                        Registering Events
-                    </Heading>
-                    <Flex mt='1rem' direction='column'>
-                        {VoterRegisteredEvents.length > 0 ? VoterRegisteredEvents.map((event) => {
-                            return <Flex key={crypto.randomUUID()}>
-                                <Text>{event.addressVoter.substring(0,6)}...{event.addressVoter.substring(event.addressVoter.length - 5)} whitelisted</Text>
-                            </Flex>
-                        }) : <Text>No Registering Event</Text>}
-                    </Flex>
                 </Flex>
             ) : (
                 <Alert status='warning'>

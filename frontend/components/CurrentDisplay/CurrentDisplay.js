@@ -24,6 +24,8 @@ const CurrentDisplay = () => {
 
     const [isOwner, setIsOwner] = useState(false);
 
+    const [nbProposals, setNbProposals] = useState(0);
+
     // Client Viem
     const client = usePublicClient();
 
@@ -78,22 +80,22 @@ const CurrentDisplay = () => {
             case "1":
                 return (
                     <>
-                        <Proposals />
-                        <ProposalsTable />
+                        <Proposals setNbProposals={setNbProposals} />
+                        <ProposalsTable nbProposals={nbProposals} />
                     </>
                 );
             case "2":
                 return (
                     <>
                         <Text>Proposals registering session is over. Waiting for the voting session to start.</Text>
-                        <ProposalsTable />
+                        <ProposalsTable nbProposals={nbProposals} />
                     </>
                 );
             case "3":
                 return (
                     <>
                         <AddVote />
-                        <ProposalsTable />
+                        <ProposalsTable nbProposals={nbProposals} />
                     </>
                 );
             case "4":
