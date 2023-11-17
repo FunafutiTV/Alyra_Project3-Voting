@@ -77,9 +77,6 @@ const Proposals = ({ setNbProposals }) => {
             toBlock: 'latest'
         })
         setNbProposals(registeredLogs.length);
-
-        console.log("test");
-        console.log(registeredLogs);
     }   
     
     useEffect(() => {

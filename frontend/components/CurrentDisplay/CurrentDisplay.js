@@ -88,14 +88,14 @@ const CurrentDisplay = () => {
                 return (
                     <>
                         <Text>Proposals registering session is over. Waiting for the voting session to start.</Text>
-                        <ProposalsTable nbProposals={nbProposals} />
+                        <ProposalsTable />
                     </>
                 );
             case "3":
                 return (
                     <>
                         <AddVote />
-                        <ProposalsTable nbProposals={nbProposals} />
+                        <ProposalsTable />
                     </>
                 );
             case "4":
