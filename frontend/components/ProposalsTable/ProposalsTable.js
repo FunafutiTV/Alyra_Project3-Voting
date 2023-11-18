@@ -1,27 +1,39 @@
 'use client'
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Flex, Alert, AlertIcon, Heading, Input, Button, Text, useToast, Spinner } from '@chakra-ui/react'
 
-import { prepareWriteContract, writeContract, readContract } from '@wagmi/core';
-import { useAccount, usePublicClient } from 'wagmi';
+// ChakraUI
+import { Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer, Flex, Text, Spinner } from '@chakra-ui/react'
 
+// Wagmi
+import { readContract } from '@wagmi/core';
+import { usePublicClient } from 'wagmi';
+
+// Contracts informations
 import { abi, contractAddress } from '@/constants';
 
+// Reactjs
 import { useState, useEffect } from 'react';
 
-import { formatEther, parseEther, createPublicClient, http, parseAbiItem } from 'viem';
+// Viem
+import { parseAbiItem } from 'viem';
 
 const ProposalsTable = () => {
 
+    // Client Viem
     const client = usePublicClient();
 
+    // numberProposals
     const [numberProposals, setNumberProposals] = useState(0);
 
+    // proposalsArray
     const [proposalsArray, setProposalsArray] = useState([]);
 
+    // isLoading
     const [isLoading, setIsLoading] = useState(true);
 
+    // proposalsComponents
     const [proposalsComponents, setProposalsComponents] = useState([])
 
+    // Push all the proposals in an array
     const pushProposal = async (i) => {
         try {
             if (!isLoading) {
@@ -44,12 +56,14 @@ const ProposalsTable = () => {
         }
     }
 
+    // Get all the proposals when the number of proposals changes
     useEffect(() => {
         for(let i = 1; i <= numberProposals; i++) {
             pushProposal(i);
         }
     }, [numberProposals])
 
+    // Display all the proposals on the table
     useEffect(() => {
         console.log(proposalsArray)
         if (!isLoading) {
@@ -59,16 +73,15 @@ const ProposalsTable = () => {
                     <Tr key={i + 1}>
                         <Td>{i + 1}</Td>
                         <Td>{proposalsArray[i].description}</Td>
-                        <Td>{proposalsArray[i].voteCount.toString()}</Td>
                     </Tr>
                 )])
             }
         }
     }, [isLoading])
 
+    // Getting number of proposals (used to bound the for loop)
     useEffect(() => {
         const getEvents = async() => {
-            // Registered
             const registeredLogs = await client.getLogs({  
                 address: contractAddress,
                 event: parseAbiItem('event ProposalRegistered(uint proposalId)'),
@@ -87,13 +100,12 @@ const ProposalsTable = () => {
                     {isLoading 
                     ? ( <Spinner /> ) : 
                     <TableContainer>
-                        <Table variant='simple'>
+                        <Table variant='simple' border="2px solid rgba(0,0,0,0.4)">
                             <TableCaption>Proposals List</TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>Proposal ID</Th>
                                     <Th>Description</Th>
-                                    <Th>Number of votes</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>

@@ -1,17 +1,17 @@
 'use client'
 
-import { Flex, Alert, AlertIcon, Heading, Input, Button, Text, useToast, Spinner } from '@chakra-ui/react';
+// ChakraUI
+import { Flex, Alert, AlertIcon, Button, useToast, Spinner } from '@chakra-ui/react';
 
 // Wagmi
-import { prepareWriteContract, writeContract, readContract } from '@wagmi/core';
-import { useAccount, usePublicClient } from 'wagmi';
+import { prepareWriteContract, writeContract } from '@wagmi/core';
+import { useAccount } from 'wagmi';
 
 // Contracts informations
 import { abi, contractAddress } from '@/constants';
 
 // ReactJS
-import { useState, useEffect } from 'react';
-import Whitelist from '../Whitelist/Whitelist';
+import { useState } from 'react';
 
 const WorkflowButton = ({ setWrkStatus, workflowStatus }) => {
     
@@ -24,6 +24,7 @@ const WorkflowButton = ({ setWrkStatus, workflowStatus }) => {
     // Toast
     const toast = useToast();
 
+    // Function to call the appropriate function depending on the workflow status
     async function nextWorkflow(workflowStatus) {
         const chosenFunction = (workflowStatus) => {
             switch (workflowStatus) {
@@ -70,6 +71,7 @@ const WorkflowButton = ({ setWrkStatus, workflowStatus }) => {
         }  
     };
 
+    // Function to display the right text on the button depending on the workflow status
     function displayMessage(workflowStatus) {
         switch (workflowStatus) {
             case "0":
@@ -91,7 +93,7 @@ const WorkflowButton = ({ setWrkStatus, workflowStatus }) => {
                 ( isConnected ? 
                         (workflowStatus === "5") ? 
                             <></> :
-                            <Button colorScheme='green' onClick={() => {nextWorkflow(workflowStatus)}}>{displayMessage(workflowStatus)}</Button>
+                            <Button colorScheme='blue' onClick={() => {nextWorkflow(workflowStatus)}}>{displayMessage(workflowStatus)}</Button>
                     : (
                     <Alert status='warning'>
                         <AlertIcon />

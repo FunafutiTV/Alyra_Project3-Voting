@@ -1,6 +1,12 @@
 'use client'
+
+// RainbowKit
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Flex, Text} from "@chakra-ui/react";
+
+// ChakraUI
+import { Flex } from "@chakra-ui/react";
+
+// Nextjs
 import Image from "next/image";
 
 const Header = () => {

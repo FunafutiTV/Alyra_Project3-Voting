@@ -1,5 +1,6 @@
 'use client'
 
+// ChakraUI
 import { Flex, Alert, AlertIcon, Heading, Input, Button, Text, useToast, Spinner } from '@chakra-ui/react';
 
 // Wagmi
@@ -13,18 +14,17 @@ import { abi, contractAddress } from '@/constants';
 import { useState, useEffect } from 'react';
 
 // Viem
-import { formatEther, parseEther, createPublicClient, http, parseAbiItem } from 'viem';
-import { hardhat } from 'viem/chains';
+import { parseAbiItem } from 'viem';
 
 const Proposals = () => {
 
     // Client Viem
     const client = usePublicClient();
 
-    // Input States
+    // Input State
     const [proposal, setProposal] = useState([]);
 
-    // Events States
+    // Events State
     const [ProposalRegisteredEvents, setProposalRegisteredEvents] = useState([]);
 
     // IsLoading 
@@ -59,6 +59,7 @@ const Proposals = () => {
         }
         catch(err) {
             console.log(err.message)
+            setIsLoading(false)
             toast({
                 title: 'Error',
                 description: "An error occured.",
@@ -69,10 +70,8 @@ const Proposals = () => {
         }  
     };
 
-    // Get the event with Viem
-
+    // Get events with Viem
     const getEvents = async() => {
-        // Registered proposal
         const registeredLogs = await client.getLogs({  
             address: contractAddress,
             event: parseAbiItem('event ProposalRegistered(uint proposalId)'),
@@ -89,6 +88,8 @@ const Proposals = () => {
         console.log(registeredLogs);
     }   
     
+
+    // Calling getEvents when loading is over
     useEffect(() => {
         const registerAndEvents = async() => {
             await getEvents()
@@ -96,7 +97,7 @@ const Proposals = () => {
         registerAndEvents()
     }, [isLoading])
 
-    array
+    /* array */
     return (
         <Flex p='2rem'>
             {isLoading 
@@ -114,14 +115,14 @@ const Proposals = () => {
                     </Flex>
 
                     <Heading as='h2' size='xl' mt='2rem'>
-                        Registering Proposal Events
+                        Proposals Registration Events
                     </Heading>
                     <Flex mt='1rem' direction='column'>
                         {ProposalRegisteredEvents.length > 0 ? ProposalRegisteredEvents.map((event) => {
                             return <Flex key={crypto.randomUUID()}>
-                                <Text>{array[event.IdProposa.toString]} is registered as proposal with number {event.IdProposal.toString}</Text>
+                                {/* <Text>{array[event.IdProposa.toString]} is registered as proposal with number {event.IdProposal.toString}</Text> */}
                             </Flex>
-                        }) : <Text>No Registering Proposal Event</Text>}
+                        }) : <Text>No Proposals Registration Event</Text>}
                     </Flex>
                 </Flex>
             ) : (

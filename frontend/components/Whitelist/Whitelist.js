@@ -1,9 +1,10 @@
 'use client'
 
+// ChakraUI
 import { Flex, Alert, AlertIcon, Heading, Input, Button, Text, useToast, Spinner } from '@chakra-ui/react';
 
 // Wagmi
-import { prepareWriteContract, writeContract, readContract } from '@wagmi/core';
+import { prepareWriteContract, writeContract } from '@wagmi/core';
 import { useAccount, usePublicClient } from 'wagmi';
 
 // Contracts informations
@@ -13,18 +14,17 @@ import { abi, contractAddress } from '@/constants';
 import { useState, useEffect } from 'react';
 
 // Viem
-import { formatEther, parseEther, createPublicClient, http, parseAbiItem } from 'viem';
-import { hardhat } from 'viem/chains';
+import { parseAbiItem } from 'viem';
 
 const Whitelist = () => {
 
     // Client Viem
     const client = usePublicClient();
 
-    // Input States
+    // Input State
     const [addressWhitelisted, setAddressWhitelisted] = useState(0);
 
-    // Events States
+    // Events State
     const [VoterRegisteredEvents, setVoterRegisteredEvents] = useState([]);
 
     // IsLoading 
@@ -70,10 +70,8 @@ const Whitelist = () => {
         }  
     };
 
-    // Get the event with Viem
-
+    // Get events with Viem
     const getEvents = async() => {
-        // Registered Whitelist
         const registeredLogs = await client.getLogs({  
             address: contractAddress,
             event: parseAbiItem('event VoterRegistered(address voterAddress)'),
@@ -86,11 +84,9 @@ const Whitelist = () => {
                 addressVoter: log.args.voterAddress,
             })
         ));
-
-        console.log("testWhitelist");
-        console.log(registeredLogs);
     }   
-    
+
+    // Calling getEvents when loading is over
     useEffect(() => {
         const registerAndEvents = async() => {
             await getEvents()
@@ -115,7 +111,7 @@ const Whitelist = () => {
                     </Flex>
 
                     <Heading as='h2' size='xl' mt='2rem'>
-                        Registering Whitelist Events
+                        Whitelist Registration Events
                     </Heading>
                     <Flex mt='1rem' direction='column'>
                         {VoterRegisteredEvents.length > 0 ? VoterRegisteredEvents.map((event) => {

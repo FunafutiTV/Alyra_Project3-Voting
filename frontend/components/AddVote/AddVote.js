@@ -1,9 +1,10 @@
 'use client'
 
+// ChakraUI
 import { Flex, Alert, AlertIcon, Heading, Input, Button, Text, useToast, Spinner } from '@chakra-ui/react';
 
 // Wagmi
-import { prepareWriteContract, writeContract, readContract } from '@wagmi/core';
+import { prepareWriteContract, writeContract } from '@wagmi/core';
 import { useAccount, usePublicClient } from 'wagmi';
 
 // Contracts informations
@@ -13,8 +14,7 @@ import { abi, contractAddress } from '@/constants';
 import { useState, useEffect } from 'react';
 
 // Viem
-import { formatEther, parseEther, createPublicClient, http, parseAbiItem } from 'viem';
-import { hardhat } from 'viem/chains';
+import { parseAbiItem } from 'viem';
 
 const AddVote = () => {
 
@@ -39,7 +39,6 @@ const AddVote = () => {
     // registerVote Function
     const registerVote = async() => {
         try {
-
             setIsLoading(true)
             const { request } = await prepareWriteContract({
                 address: contractAddress,
@@ -59,6 +58,7 @@ const AddVote = () => {
         }
         catch(err) {
             console.log(err.message)
+            setIsLoading(false)
             toast({
                 title: 'Error',
                 description: "An error occured.",
@@ -69,10 +69,8 @@ const AddVote = () => {
         }  
     };
 
-    // Get the event with Viem
-
+    // Get events with Viem
     const getEvents = async() => {
-        // Registered
         const registeredLogs = await client.getLogs({  
             address: contractAddress,
             event: parseAbiItem('event Voted(address voter, uint proposalId)'),
@@ -88,6 +86,7 @@ const AddVote = () => {
         ));
     }   
     
+    // Get events when loading is over
     useEffect(() => {
         const registerAndEvents = async() => {
             await getEvents()
@@ -103,7 +102,7 @@ const AddVote = () => {
                 <Flex direction="column" width='100%'>
                     
                     <Heading as='h2' size='xl'>
-                        Make your vote
+                        Register your vote
                     </Heading>
                     
                     <Flex mt='1rem'>

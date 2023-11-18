@@ -1,14 +1,16 @@
 'use client'
+
+// ChakraUI
 import { ChakraProvider } from '@chakra-ui/react'
 
-
+// CSS
 import './globals.css'
+
+// RainbowKit
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 
-import {
-  getDefaultWallets,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
+// Wagmi
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { hardhat } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
