@@ -4,7 +4,7 @@
 import { Flex, Button, useToast, Heading } from '@chakra-ui/react';
 
 // Wagmi
-import { readContract } from '@wagmi/core';
+import { readContract, getWalletClient } from '@wagmi/core';
 
 // ReactJS
 import { useState, useEffect } from 'react'
@@ -51,24 +51,19 @@ const VoteOver = () => {
 
     // Get winning proposal description
     const getDescription = async() => {
+        const walletClient = await getWalletClient();
         try {
             const data = await readContract({
                 address: contractAddress,
                 abi: abi,
                 functionName: 'getOneProposal',
                 args: [winner],
+                account: walletClient.account,
             })
             setWinnerDescription(data.description)
         }
         catch(err) {
             console.log(err.message)
-            toast({
-                title: 'Error',
-                description: "An error occured.",
-                status: 'error',
-                duration: 4000,
-                isClosable: true,
-            })
         }
     }
 
@@ -84,7 +79,12 @@ const VoteOver = () => {
                     <Button colorScheme='green' onClick={getWinner}>Get winner</Button>
                 </Flex>
                 <Flex>
-                    {hasClicked ? <Heading as="h2" fontSize="1.2rem" marginTop="2rem">The winner is proposal {winner} : {winnerDescription}</Heading>: <></>}
+                    {hasClicked ? 
+                        winnerDescription ?
+                            <Heading as="h2" fontSize="1.2rem" marginTop="2rem">The winner is proposal {winner} : {winnerDescription}</Heading>
+                        : <Heading as="h2" fontSize="1.2rem" marginTop="2rem">The winner is proposal number {winner}</Heading> 
+                    : <></>
+                    }
                 </Flex>
         </Flex>
     )

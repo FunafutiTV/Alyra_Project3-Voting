@@ -1,11 +1,11 @@
 'use client'
 
 // ChakraUI
-import { Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer, Flex, Text, Spinner } from '@chakra-ui/react'
+import { Heading, useToast, Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer, Flex, Text, Spinner } from '@chakra-ui/react'
 
 // Wagmi
-import { readContract } from '@wagmi/core';
-import { usePublicClient } from 'wagmi';
+import { readContract, getWalletClient } from '@wagmi/core';
+import { useAccount, usePublicClient } from 'wagmi';
 
 // Contracts informations
 import { abi, contractAddress } from '@/constants';
@@ -17,6 +17,9 @@ import { useState, useEffect } from 'react';
 import { parseAbiItem } from 'viem';
 
 const ProposalsTable = () => {
+
+    // Account's informations
+    const { address } = useAccount();
 
     // Client Viem
     const client = usePublicClient();
@@ -30,11 +33,38 @@ const ProposalsTable = () => {
     // isLoading
     const [isLoading, setIsLoading] = useState(true);
 
+    // Toast
+    const toast = useToast();
+
+    // isVoter
+    const [isVoter, setIsVoter] = useState(false);
+
     // proposalsComponents
     const [proposalsComponents, setProposalsComponents] = useState([])
 
+    // Verify is user is a voter
+    const getIsVoter = async () => {
+        const walletClient = await getWalletClient();
+        try {
+            const data = await readContract({
+                address: contractAddress,
+                abi: abi,
+                functionName: "getVoter",
+                args: [address],
+                account: walletClient.account,
+            });
+    
+            setIsVoter(data.isRegistered);
+        } 
+        catch (err) {
+            console.log(err);
+            setIsVoter(false);
+        }
+    }
+
     // Push all the proposals in an array
     const pushProposal = async (i) => {
+        const walletClient = await getWalletClient();
         try {
             if (!isLoading) {
                 setProposalsArray([])
@@ -45,6 +75,8 @@ const ProposalsTable = () => {
                 abi: abi,
                 functionName: 'getOneProposal',
                 args: [i],
+                account: walletClient.account,
+
             })
             setProposalsArray((prevProposals) => [...prevProposals, data]);
             if (i === numberProposals) {
@@ -93,29 +125,39 @@ const ProposalsTable = () => {
         getEvents();
     }, [])
 
+    useEffect(() => {
+        const call = async() => {await getIsVoter()};
+        call();
+    }, [address])
+
     return(
-        <Flex p='2rem'>
-            {(numberProposals !== 0) ? 
-                <>
-                    {isLoading 
-                    ? ( <Spinner /> ) : 
-                    <TableContainer>
-                        <Table variant='simple' border="2px solid rgba(0,0,0,0.4)">
-                            <TableCaption>Proposals List</TableCaption>
-                            <Thead>
-                                <Tr>
-                                    <Th>Proposal ID</Th>
-                                    <Th>Description</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                {proposalsComponents}
-                            </Tbody>
-                        </Table>
-                    </TableContainer>
-            }</> : <Text>No proposals yet.</Text>
+        <>
+            {isVoter ? 
+            <Flex p='2rem'>
+                {(numberProposals !== 0) ? 
+                    <>
+                        {isLoading 
+                        ? ( <Spinner /> ) : 
+                        <TableContainer>
+                            <Table variant='simple' border="2px solid rgba(0,0,0,0.4)">
+                                <TableCaption>Proposals List</TableCaption>
+                                <Thead>
+                                    <Tr>
+                                        <Th>Proposal ID</Th>
+                                        <Th>Description</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {proposalsComponents}
+                                </Tbody>
+                            </Table>
+                        </TableContainer>
+                }</> : <Text>No proposals yet.</Text>
+                }
+            </Flex>
+            : <Heading as="h2" fontSize="1.2rem" marginLeft="2rem" marginTop="2rem">Only voters can access this.</Heading>
             }
-        </Flex>
+        </>
     )
 }
 
