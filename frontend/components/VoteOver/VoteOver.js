@@ -15,27 +15,23 @@ import { abi, contractAddress } from '@/constants';
 
 const VoteOver = () => {
 
-    // hasClicked
+    // State that registers a click on the "Get winner" button
     const [hasClicked, setHasClicked] = useState(false);
 
-    // winner
+    // State that will contain the ID of the winning proposal
     const [winner, setWinner] = useState(0);
 
-    // winnerDescription
+    // State that will contain the description of the winning proposal
     const [winnerDescription, setWinnerDescription] = useState("");
 
     // Toast
-    const toast = useToast();
-
-    // wrkStatus
-    const [wrkStatus, setWrkStatus] = useState(false)      
+    const toast = useToast();   
     
-    // isOwner
+    // State that registers if the current address is the owner
     const [isOwner, setIsOwner] = useState(false);
 
-    // isVoter
+    // State that registers if the current address is a owner
     const [isVoter, setIsVoter] = useState(false);
-
         
     // Account's informations
     const { address, isConnected } = useAccount();

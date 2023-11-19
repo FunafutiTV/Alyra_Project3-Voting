@@ -21,7 +21,7 @@ const Proposals = () => {
     // Input State
     const [proposal, setProposal] = useState([]);
 
-    // IsLoading 
+    // State registering if the component is loading (a spinner will be displayed if it is)
     const [isLoading, setIsLoading] = useState(false);
 
     // Toast
@@ -30,7 +30,7 @@ const Proposals = () => {
     // Account's informations
     const { isConnected } = useAccount();
 
-    // registerProposals Function
+    // Function to register a proposal
     const registerProposals = async() => {
         try {
 

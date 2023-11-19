@@ -27,7 +27,7 @@ const Whitelist = () => {
     // Events State
     const [VoterRegisteredEvents, setVoterRegisteredEvents] = useState([]);
 
-    // IsLoading 
+    // State registering if the component is loading (a spinner will be displayed if it is)
     const [isLoading, setIsLoading] = useState(false);
 
     // Toast
@@ -36,7 +36,7 @@ const Whitelist = () => {
     // Account's informations
     const { address, isConnected } = useAccount();
 
-    // addVoter Function
+    // Function to add a voter to the whitelist
     const addVoter = async() => {
         try {
 

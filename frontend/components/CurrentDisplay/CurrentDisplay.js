@@ -29,7 +29,7 @@ const CurrentDisplay = () => {
     // isOwner
     const [isOwner, setIsOwner] = useState(false);
 
-    // wrkStatus
+    // State that will get the workflow status from the workflowButton component
     const [wrkStatus, setWrkStatus] = useState(false);
 
     // Client Viem

@@ -24,22 +24,22 @@ const ProposalsTable = () => {
     // Client Viem
     const client = usePublicClient();
 
-    // numberProposals
+    // State that will register the number of proposals
     const [numberProposals, setNumberProposals] = useState(0);
 
-    // proposalsArray
+    // Array that will contain all the proposals
     const [proposalsArray, setProposalsArray] = useState([]);
 
-    // isLoading
+    // State registering if the component is loading (a spinner will be displayed if it is)
     const [isLoading, setIsLoading] = useState(true);
 
     // Toast
     const toast = useToast();
 
-    // isVoter
+    // State that registers if the current address is the owner
     const [isVoter, setIsVoter] = useState(false);
 
-    // proposalsComponents
+    // Array that will contain the components for each proposal to display in the table
     const [proposalsComponents, setProposalsComponents] = useState([])
 
     // Verify is user is a voter
@@ -125,6 +125,7 @@ const ProposalsTable = () => {
         getEvents();
     }, [])
 
+    // Whenever an account change is detected, verify if the address is a voter
     useEffect(() => {
         const call = async() => {await getIsVoter()};
         call();

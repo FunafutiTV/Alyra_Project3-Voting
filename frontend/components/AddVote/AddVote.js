@@ -27,7 +27,7 @@ const AddVote = () => {
     // Events States
     const [VoteEvents, setVoteEvents] = useState([]);
 
-    // IsLoading 
+    // State registering if the component is loading (a spinner will be displayed if it is)
     const [isLoading, setIsLoading] = useState(false);
 
     // Toast
@@ -36,7 +36,7 @@ const AddVote = () => {
     // Account's informations
     const { address, isConnected } = useAccount();
 
-    // registerVote Function
+    // Function to register a voter
     const registerVote = async() => {
         try {
             setIsLoading(true)

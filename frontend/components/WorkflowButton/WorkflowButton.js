@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 const WorkflowButton = ({ setWrkStatus, workflowStatus }) => {
     
-    // IsLoading 
+    // State registering if the component is loading (a spinner will be displayed if it is)
     const [isLoading, setIsLoading] = useState(false);
 
     // Account's informations
