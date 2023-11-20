@@ -13,7 +13,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 
 // Wagmi
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { hardhat } from 'wagmi/chains';
+import { hardhat, sepolia } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
 

@@ -3,8 +3,8 @@
 # Pour correction :
 
 - Lien vidéo : https://www.loom.com/share/59c1fdcc3e4f446cabd11d8890383b4a?sid=df345609-43b7-4e8e-92c1-df44c2d86c7c
-- Lien déploiement :
-- Déployé sur Sepolia
+- Lien déploiement : 
+- Déployé sur Sepolia : 0xA6CdeB35BFda09242e3240Dee74D8F554BaEf66D
 - Groupe constitué de : Thomas Thierry et Nathanael Kubski
 
 # Détails
