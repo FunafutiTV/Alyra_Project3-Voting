@@ -20,9 +20,9 @@ import { publicProvider } from 'wagmi/providers/public';
 // :::::::::::::::::::::::CONFIGURATION:::::::::::::::::::::::::::::::
 
 const { chains, publicClient } = configureChains(
-  [hardhat],
+  [hardhat, sepolia],
   [
-      alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+      alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
       publicProvider()
   ]
 );
