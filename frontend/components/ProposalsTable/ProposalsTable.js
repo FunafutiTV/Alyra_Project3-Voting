@@ -117,8 +117,8 @@ const ProposalsTable = () => {
             const registeredLogs = await client.getLogs({  
                 address: contractAddress,
                 event: parseAbiItem('event ProposalRegistered(uint proposalId)'),
-                fromBlock :0n,                
-                // fromBlock: BigInt(Number(await client.getBlockNumber()) - 15000),
+                // fromBlock :0n,                
+                fromBlock: BigInt(Number(await client.getBlockNumber()) - 15000),
                 toBlock: 'latest'
             })
             setNumberProposals(registeredLogs.length);

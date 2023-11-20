@@ -78,8 +78,8 @@ const Whitelist = () => {
         const registeredLogs = await client.getLogs({  
             address: contractAddress,
             event: parseAbiItem('event VoterRegistered(address voterAddress)'),
-            fromBlock :0n,            
-            // fromBlock: BigInt(Number(await client.getBlockNumber()) - 15000),
+            // fromBlock :0n,            
+            fromBlock: BigInt(Number(await client.getBlockNumber()) - 15000),
             toBlock: 'latest'
         })
 
