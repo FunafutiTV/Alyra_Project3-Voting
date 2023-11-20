@@ -4,7 +4,7 @@
 import { Flex, Alert, AlertIcon, Heading, Input, Button, useToast, Spinner } from '@chakra-ui/react';
 
 // Wagmi
-import { prepareWriteContract, writeContract } from '@wagmi/core';
+import { prepareWriteContract, writeContract, waitForTransaction } from '@wagmi/core';
 import { useAccount, usePublicClient } from 'wagmi';
 
 // Contracts informations
@@ -42,6 +42,9 @@ const Proposals = () => {
                 args: [proposal],
             });
             const { hash } = await writeContract(request);
+            const data = await waitForTransaction({
+                hash: hash,
+            })
             setIsLoading(false)
             toast({
                 title: 'Congratulations',

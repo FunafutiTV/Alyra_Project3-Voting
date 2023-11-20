@@ -8,6 +8,7 @@ import './globals.css'
 
 // RainbowKit
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 import '@rainbow-me/rainbowkit/styles.css';
 
 // Wagmi
@@ -21,12 +22,13 @@ import { publicProvider } from 'wagmi/providers/public';
 const { chains, publicClient } = configureChains(
   [hardhat],
   [
-    publicProvider()
+      alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+      publicProvider()
   ]
 );
 const { connectors } = getDefaultWallets({
   appName: 'My RainbowKit App',
-  projectId: 'f06eb38511f11749f70d6ea4e2b955eb',
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID,
   chains
 });
 const wagmiConfig = createConfig({

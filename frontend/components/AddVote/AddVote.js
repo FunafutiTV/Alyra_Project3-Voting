@@ -4,7 +4,7 @@
 import { Flex, Alert, AlertIcon, Heading, Input, Button, Text, useToast, Spinner } from '@chakra-ui/react';
 
 // Wagmi
-import { prepareWriteContract, writeContract } from '@wagmi/core';
+import { prepareWriteContract, writeContract, waitForTransaction } from '@wagmi/core';
 import { useAccount, usePublicClient } from 'wagmi';
 
 // Contracts informations
@@ -47,6 +47,9 @@ const AddVote = () => {
                 args: [voteAdded],
             });
             const { hash } = await writeContract(request);
+            const data = await waitForTransaction({
+                hash: hash,
+            })
             setIsLoading(false)
             toast({
                 title: 'Congratulations',
@@ -74,7 +77,8 @@ const AddVote = () => {
         const registeredLogs = await client.getLogs({  
             address: contractAddress,
             event: parseAbiItem('event Voted(address voter, uint proposalId)'),
-            fromBlock: 0n,
+            fromBlock :0n,
+            // fromBlock: BigInt(Number(await client.getBlockNumber()) - 15000),
             toBlock: 'latest'
         })
 

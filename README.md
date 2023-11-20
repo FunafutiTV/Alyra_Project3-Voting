@@ -18,7 +18,8 @@ Nous avons également ajouté des commentaires en NatSpec sur le contrat
 # Front
 
 Voici la liste de la stack utilisée pour ce projet :
-- React
+- Node 20.9.0
+- Nextjs 13.5
 - Wagmi
 - Viem
 - RainbowKit
