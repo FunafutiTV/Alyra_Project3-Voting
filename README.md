@@ -2,7 +2,7 @@
 
 ## Voting app
 
-This is a decentralized application that allows the smart contract's owner to start a voting session, in which the whitelisted users can submit proposals and vote.
+This is a decentralized application that allows the smart contract's owner to start a voting session, in which the whitelisted users can submit proposals and vote. The app is only available in English.
 
 ### 60 seconds demonstration video
 
@@ -48,7 +48,7 @@ Stack :
 
 ## Application de vote
 
-Ceci est une application décentralisée qui permet au propriétaire du smart contract de démarrer une session de vote, dans laquelle les utilisateurs autorisés peuvent soumettre des propositions et voter.
+Ceci est une application décentralisée qui permet au propriétaire du smart contract de démarrer une session de vote, dans laquelle les utilisateurs autorisés peuvent soumettre des propositions et voter. L'application est disponible uniquement en anglais.
 
 ### Vidéo de démonstration en 60 secondes
 
